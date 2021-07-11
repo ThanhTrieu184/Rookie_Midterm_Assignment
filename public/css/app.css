@@ -10086,3 +10086,10 @@ body {
   color: #f3f3f3;
   background-color: #f75454;
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}

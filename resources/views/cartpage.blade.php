@@ -14,20 +14,19 @@
   <style>
   </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
 	<a class="navbar-brand" href="#">
         <img src="bookworm_icon.svg" alt="icon" width="70%">
     </a>
-  	{{-- <a class="navbar-brand" href="#"><strong>BOOKWORM</strong></a> --}}
   	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     	<span class="navbar-toggler-icon"></span>
   	</button>
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link " href="/home">Home</a>
+                <a class="nav-link " href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/shop">Shop</a>
@@ -57,7 +56,7 @@
                         <tr class="text-center card-header">
                             <th class="cart-img"></th>
                             <th class="font-weight-bold">
-                                <strong>Product</strong>
+                                <strong>Book Title</strong>
                             </th>
                             <th class="font-weight-bold">
         
@@ -82,104 +81,38 @@
                             <!-- Table body -->
                         <tbody class="card-body">
                             <!-- First row -->
-                            <tr class="text-center">
-                                <td>
-                                    <a><img src="book1.jpg" alt="" class="img-fluid mx-auto d-block"></a>
-                                </td>
-                                <td>
-            
-                                    <h5 class="mt-3">
-            
-                                    <strong>iPhone</strong>
-            
-                                    </h5>
-            
-                                    <p class="text-muted">Apple</p>
-            
-                                </td> 
-                                <td>$800</td>
-            
-                                <td >
-                                    <div class="row">
-                                        <button class="col-lg-2 btn  px-3" id="decrease" onclick="decreaseValue('number1')" ><i class="fa fa-minus" aria-hidden="true"></i></button>
-                                        <input class="col-lg-8 text-center" type="number" id="number1" value="1" min="1" max="8" disabled/>
-                                        <button class="col-lg-2 btn  px-3" id="increase" onclick="increaseValue('number1')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                    </div>
-                                </td>
-            
-                                <td class="font-weight-bold">
-            
-                                    <strong>$800</strong>
-            
-                                </td>
-            
-                            </tr>
-                            <!-- First row -->
-        
-                            <!-- Second row -->
-                            <tr class="text-center">
-                                <td>
-                                    <a><img src="book1.jpg" alt=""class="img-fluid mx-auto d-block"></a>
-                                </td>
-                                <td>
-            
-                                    <h5 class="mt-3">
-            
-                                    <strong>Headphones</strong>
-            
-                                    </h5>
-            
-                                    <p class="text-muted">Sony</p>
-            
-                                </td>
-            
-                                <td>$200</td>
-                                <td >
-                                    <div class="row">
-                                        <button class="col-lg-2 btn  px-3" id="decrease" onclick="decreaseValue('number2')" ><i class="fa fa-minus" aria-hidden="true"></i></button>
-                                        <input class="col-lg-8 text-center" type="number" id="number2" value="1" min="1" max="8" disabled/>
-                                        <button class="col-lg-2 btn  px-3" id="increase" onclick="increaseValue('number2')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                    </div>
-                                </td>
-                                <td class="font-weight-bold">
-            
-                                    <strong>$600</strong>
-            
-                                </td>
-                            </tr>
-                            <!-- Second row -->
-        
-                            <!-- Third row -->
-                            <tr class="text-center">
-        
-                                <td>
-                                    <img src="book1.jpg" alt="" class="img-fluid mx-auto d-block">
-                                </td>
-                                <td>
-            
-                                    <h5 class="mt-3">
-            
-                                    <strong>iPad Pro</strong>
-            
-                                    </h5>
-            
-                                    <p class="text-muted">Apple</p>
-            
-                                </td>
-            
-                                <td>$600</td>
-                                <td >
-                                    <div class="row">
-                                        <button class="col-lg-2 btn  px-3" id="decrease" onclick="decreaseValue('number3')" ><i class="fa fa-minus" aria-hidden="true"></i></button>
-                                        <input class="col-lg-8 text-center" type="number" id="number3" value="1" min="1" max="8" disabled/>
-                                        <button class="col-lg-2 btn  px-3" id="increase" onclick="increaseValue('number3')"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                    </div>
-                                </td>
-                                <td class="font-weight-bold">
-                                    <strong>$1200</strong>
-                                </td>
-            
-                            </tr>
+                            @if (session('cart'))
+                                @foreach (session('cart') as $id=>$book)
+                                <tr class="text-center">
+                                    <td>
+                                        <a><img src="bookcover/book1.jpg" alt="" class="img-fluid mx-auto d-block"></a>
+                                    </td>
+                                    <td>            
+                                        <p class="h6">{{ $book["book_title"] }}</p>                            
+                                    </td> 
+                                    <td>{{ $book["book_price"] }}</td>
+                                    <td >
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <button class="btn float-left" id="decrease" onclick="decreaseValue('{{ 'number'.$book['book_id'] }}')" ><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input class="w-100 text-center" type="number" id="{{ 'number'.$book['book_id'] }}" value="1" min="1" max="8" disabled/>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button class="btn float-right" id="increase" onclick="increaseValue('{{'number'.$book['book_id'] }}')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="font-weight-bold">
+                
+                                        <strong>$800</strong>
+                
+                                    </td>
+                
+                                </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                     <script>
@@ -230,7 +163,7 @@
     </div>
 </div>
 
-<div class="jumbotron text-left bg-light mb-0  mt-5">
+<div class="text-left bg-light mt-auto py-5 px-3">
     <a class="navbar-brand" href="#">
         <img src="bookworm_icon.svg" alt="icon" width="100%">
     </a>

@@ -14,7 +14,7 @@
   <style>
   </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
 	<a class="navbar-brand" href="#">
@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/home">Home</a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="/shop">Shop</a>
@@ -52,7 +52,8 @@
     <div class="row">
         <div class="col-lg-2"><p class=" h3 font-weight-bold">Filter By </p></div>
         <div class="col-lg-3">
-            <i>Showing 1 to 10 out of 100 books</i>
+            {{-- <i>Showing {{ $books->firstItem() }} to {{ $books->lastItem()}} out of {{ $books->total() }} books</i> --}}
+            <i>Showing 1 - 10 out of 294 books.</i>
         </div>
         <div class="col-lg-7 text-right">
             <div class="row">
@@ -185,13 +186,14 @@
       <!-- Content -->
         <div class="col-lg-10">
             <div class="row">
+                @for ($i = 1; $i < 9; $i++)
                 <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
+                    <div class="card h-100">
                         <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid" alt="">
+                            <img src="bookcover/book1.jpg" class="img-fluid" alt="">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">Book name</a></strong></h5>
+                            <h5 class="card-title mb-1"><strong><a href="{{ url('cart/'.$i) }}" class="dark-grey-text">Book title</a></strong></h5>
                             <span class="badge badge-warning">Author</span>
                             
                         </div>
@@ -200,239 +202,9 @@
 
                         </div>
                     </div>
-
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
-                        <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid"
-                                alt="">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">iPad</a></strong></h5><span
-                                class="badge badge-danger mb-2">bestseller</span>
-                            <div class="card-footer pb-0">
-
-                                <div class="row mb-0">
-
-                                    <span class="float-left"><strong>1439$</strong></span>
-
-                                    <span class="float-right">
-
-                                        <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i
-                                            class="fas fa-shopping-cart ml-3"></i></a>
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
-                        <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid"
-                                alt="">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">iPad</a></strong></h5><span
-                                class="badge badge-danger mb-2">bestseller</span>
-                            <div class="card-footer pb-0">
-
-                                <div class="row mb-0">
-
-                                    <span class="float-left"><strong>1439$</strong></span>
-
-                                    <span class="float-right">
-
-                                        <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i
-                                            class="fas fa-shopping-cart ml-3"></i></a>
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
-                        <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid"
-                                alt="">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">iPad</a></strong></h5><span
-                                class="badge badge-danger mb-2">bestseller</span>
-                            <div class="card-footer pb-0">
-
-                                <div class="row mb-0">
-
-                                    <span class="float-left"><strong>1439$</strong></span>
-
-                                    <span class="float-right">
-
-                                        <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i
-                                            class="fas fa-shopping-cart ml-3"></i></a>
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
-                        <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid"
-                                alt="">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">iPad</a></strong></h5><span
-                                class="badge badge-danger mb-2">bestseller</span>
-                            <div class="card-footer pb-0">
-
-                                <div class="row mb-0">
-
-                                    <span class="float-left"><strong>1439$</strong></span>
-
-                                    <span class="float-right">
-
-                                        <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i
-                                            class="fas fa-shopping-cart ml-3"></i></a>
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
-                        <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid"
-                                alt="">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">iPad</a></strong></h5><span
-                                class="badge badge-danger mb-2">bestseller</span>
-                            <div class="card-footer pb-0">
-
-                                <div class="row mb-0">
-
-                                    <span class="float-left"><strong>1439$</strong></span>
-
-                                    <span class="float-right">
-
-                                        <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i
-                                            class="fas fa-shopping-cart ml-3"></i></a>
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
-                        <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid"
-                                alt="">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">iPad</a></strong></h5><span
-                                class="badge badge-danger mb-2">bestseller</span>
-                            <div class="card-footer pb-0">
-
-                                <div class="row mb-0">
-
-                                    <span class="float-left"><strong>1439$</strong></span>
-
-                                    <span class="float-right">
-
-                                        <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i
-                                            class="fas fa-shopping-cart ml-3"></i></a>
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4">
-                    <div class="card card-ecommerce">
-                        <div class="view overlay">
-                            <img src="book1.jpg" class="img-fluid"
-                                alt="">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-1"><strong><a href="" class="dark-grey-text">iPad</a></strong></h5><span
-                                class="badge badge-danger mb-2">bestseller</span>
-                            <div class="card-footer pb-0">
-
-                                <div class="row mb-0">
-
-                                    <span class="float-left"><strong>1439$</strong></span>
-
-                                    <span class="float-right">
-
-                                        <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i
-                                            class="fas fa-shopping-cart ml-3"></i></a>
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
+                </div>     
+                @endfor
+                
             </div>
         
             <div class="row justify-content-center mb-4">
@@ -490,14 +262,19 @@
 
                 </nav>
                 <!-- Pagination -->
+                
             </div>
+            {{-- <div class="row justify-content-center mb-4">
+                {{ $books->links() }}
+            </div> --}}
         </div>
       <!-- Content -->
     </div>
         
 </div>
 
-<div class="jumbotron text-left bg-light mb-0 mt-5">
+
+<div class="text-left bg-light mt-auto py-5 px-3">
     <a class="navbar-brand" href="#">
         <img src="bookworm_icon.svg" alt="icon" width="100%">
     </a>

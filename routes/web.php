@@ -1,16 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\View;
+use App\Http\Controllers\BookController;
 
-
+// Route::get('book1',[BookController::class, 'index']);
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('book',[BookController::class, 'index']);
-Route::get('/home', function () {
     if (View::exists('homepage')) {
         return view('homepage');
     }
@@ -18,7 +14,7 @@ Route::get('/home', function () {
         echo 'Khong ton tai';
     }
         
-})->name('home');
+})->name('homepage');
 
 Route::get('/shop', function () {
     if (View::exists('shoppingpage')) {
@@ -59,3 +55,7 @@ Route::get('/detail', function () {
     }
         
 })->name('detail');
+
+Route::resource('/book',BookController::class);
+
+Route::get('cart/{id}',[CartController::class, 'add_to_cart'])->name('cart.add');

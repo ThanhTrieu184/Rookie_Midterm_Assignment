@@ -14,7 +14,7 @@
   <style>
   </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
 	<a class="navbar-brand" href="#">
@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link " href="/home">Home</a>
+                <a class="nav-link " href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/shop">Shop</a>
@@ -43,7 +43,7 @@
 </nav>
 
 <div class="container" style="margin-top:80px; font-size: 16px;">
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-lg-12 mb-3">
             <h3><strong>About us</strong></h3>
             <hr>
@@ -86,7 +86,7 @@
     </div>
 </div>
 
-<div class="jumbotron text-left bg-light mb-0 mt-5">
+<div class="text-left bg-light mt-auto py-5 px-3">
     <a class="navbar-brand" href="#">
         <img src="bookworm_icon.svg" alt="icon" width="100%">
     </a>

@@ -16,7 +16,7 @@
   <style>
   </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
 	<a class="navbar-brand" href="#">
@@ -29,7 +29,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link " href="/home">Home</a>
+                <a class="nav-link " href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/shop">Shop</a>
@@ -56,7 +56,7 @@
             <div class="card mb-3" >
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="book1.jpg" class="card-img" alt="...">
+                        <img src="bookcover/book1.jpg" class="card-img" alt="...">
                         <p class="card-text mb-5 text-center mt-3"><i class="text-muted"><small>By author: </small></i> <strong>Anna bella</strong></p>
                     </div>
                     <div class="col-md-8">
@@ -237,23 +237,29 @@
                 <!-- Pagination -->
             </div>
         </div>
+        
+            
         <div class="col-lg-4">
             <div class="row mb-3">
                 <div class="card col-lg-12">
-                    <div class="card-header text-center font-weight-bold shadow">Price</div>
-                    <div class="card-body ">
-                        <div class="row text-left">
-                            <i >Quantity</i>
+                    {{-- <form action="{{ route('cart.add') }}" method="post">
+                        @csrf --}}
+                        <div class="card-header text-center font-weight-bold shadow">Price</div>
+                        <div class="card-body ">
+                            <div class="row text-left">
+                                <i >Quantity</i>
+                            </div>
+                            {{-- <input type="number" value="1" name="id"> --}}
+                            <div class="row text-center">
+                                <input class="col-lg-8 col-sm-12 text-center" type="number" id="number" value="1" min="1" max="8" name="quantity"/>
+                                <button class="col-lg-2 col-sm-6 btn  px-3" id="decrease" onclick="decreaseValue()" ><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                <button class="col-lg-2 col-sm-6 btn  px-3" id="increase" onclick="increaseValue()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
                         </div>
-                        <div class="row text-center">
-                            <input class="col-lg-8 col-sm-12 text-center" type="number" id="number" value="1" min="1" max="8" disabled/>
-                            <button class="col-lg-2 col-sm-6 btn  px-3" id="decrease" onclick="decreaseValue()" ><i class="fa fa-minus" aria-hidden="true"></i></button>
-                            <button class="col-lg-2 col-sm-6 btn  px-3" id="increase" onclick="increaseValue()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <div class="text-center">
+                            <button type="subit" class="btn theme-color my-3 border btn-block">Add to cart</button>
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn theme-color my-3 border btn-block">Add to cart</button>
-                    </div>
+                    {{-- </form> --}}
                     <script>
                         function increaseValue() {
                             var value = parseInt(document.getElementById('number').value, 10);
@@ -323,12 +329,10 @@
     </div>
     
 </div>
-
-<div class="jumbotron text-left bg-light mb-0 mt-5">
+<div class="text-left bg-light mt-auto py-5 px-3">
     <a class="navbar-brand" href="#">
         <img src="bookworm_icon.svg" alt="icon" width="100%">
     </a>
 </div>
-
 </body>
 </html>

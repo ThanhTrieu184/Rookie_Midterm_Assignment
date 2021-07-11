@@ -14,7 +14,7 @@
   <style>
   </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
 	<a class="navbar-brand" href="#">
@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="/home">Home</a>
+                <a class="nav-link active" href="/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/shop">Shop</a>
@@ -67,164 +67,71 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
+                                        @for ($i = 0; $i < 4; $i++)
+                                            <div class="col-lg-3 col-md-12 my-3">
+                                                <div class="card h-100">
+                                                    <div class="view overlay">
+                                                        <img src="bookcover/book1.jpg" class="img-fluid" alt="">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><strong><a href="" class="dark-grey-text">Book Name</a></strong></h5>
+                                                        <span class="badge badge-warning">Author</span>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <span class="float-left"><strong>Price</strong></span>
+                            
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <!--.row-->
-                                </div>
-                                <!--.item-->
-
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price2
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endfor
                                     </div>
                                     <!--.row-->
                                 </div>
                                 <!--.item-->
                                 <div class="carousel-item">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
+                                        @for ($i = 4; $i < 8; $i++)
+                                        <div class="col-lg-3 col-md-12 my-3">
+                                            <div class="card h-100">
+                                                <div class="view overlay">
+                                                    <img src="bookcover/book1.jpg" class="img-fluid" alt="">
+                                                </div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
+                                                    <h5 class="card-title"><strong><a href="" class="dark-grey-text">Book Name</a></strong></h5>
+                                                    <span class="badge badge-warning">Author</span>
+                                                    
                                                 </div>
                                                 <div class="card-footer">
-                                                    Price3
+                                                    <span class="float-left"><strong>Price</strong></span>
+                        
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
+                                        @endfor
+                                    </div>
+                                    <!--.row-->
+                                </div>
+                                <!--.item-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        @for ($i = 6; $i < 10; $i++)
+                                        <div class="col-lg-3 col-md-12 my-3">
+                                            <div class="card h-100">
+                                                <div class="view overlay">
+                                                    <img src="bookcover/book1.jpg" class="img-fluid" alt="">
+                                                </div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
+                                                    <h5 class="card-title"><strong><a href="" class="dark-grey-text">Book Name</a></strong></h5>
+                                                    <span class="badge badge-warning">Author</span>
+                                                    
                                                 </div>
                                                 <div class="card-footer">
-                                                    Price
+                                                    <span class="float-left"><strong>Price</strong></span>
+                        
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endfor
                                     </div>
                                     <!--.row-->
                                 </div>
@@ -247,7 +154,7 @@
         
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-md-12">
             <h2 class="text-center">Featured Books</h2>
             <section id="tabs" class="project-tab">
@@ -264,202 +171,44 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
+                                        @for ($i = 0; $i < 8; $i++)
+                                            <div class="col-lg-3 col-md-12 mt-3 mb-3">
+                                                <div class="card h-100">
+                                                    <div class="view overlay">
+                                                        <img src="bookcover/book1.jpg" class="img-fluid" alt="">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><strong><a href="" class="dark-grey-text">Book Name</a></strong></h5>
+                                                        <span class="badge badge-warning">Author</span>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <span class="float-left"><strong>Price</strong></span>
+                            
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endfor
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
+                                        @for ($i = 0; $i < 8; $i++)
+                                            <div class="col-lg-3 col-md-12 mt-3 mb-3">
+                                                <div class="card h-100">
+                                                    <div class="view overlay">
+                                                        <img src="bookcover/book1.jpg" class="img-fluid" alt="">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><strong><a href="" class="dark-grey-text">Book Name</a></strong></h5>
+                                                        <span class="badge badge-warning">Author</span>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <span class="float-left"><strong>Price</strong></span>
+                            
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 mt-3 mb-3">
-                                            <div class="card">
-                                                <img class="card-img-top" src="book1.jpg" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Bookname</h5>
-                                                    <p class="card-text">Author's name</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                    Price
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endfor
                                     </div>
                                 </div>
                             </div>
@@ -472,11 +221,10 @@
     </div>
 </div>
 
-<div class="jumbotron text-left bg-light mb-0 mt-5">
+<div class="text-left bg-light mt-auto py-5 px-3">
     <a class="navbar-brand" href="#">
         <img src="bookworm_icon.svg" alt="icon" width="100%">
     </a>
 </div>
-
 </body>
 </html>
