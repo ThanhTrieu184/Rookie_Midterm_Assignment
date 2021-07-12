@@ -41,16 +41,14 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        // $book = Book::find($id);
-        // $review = DB::table('reviews')
-        //         ->select('review_title','review_details','review_date','rating_start')
-        //         ->where('book_id',$id)
-        //         ->get();
-        // return response()->json([
-        //     'data'=>$book,
-        //     'review' =>$review
-        // ]);
-        return Book::find($id);
+        $book = DB::table('books')
+                    ->join('authors','books.author_id','authors.id')
+                    ->join('categories','books.category_id','categories.id')
+                    ->leftJoin('discounts','books.id','discounts.book_id')
+                    ->where('books.id',$id)
+                    ->select('books.*','authors.author_name','categories.category_name','discounts.discount_price','discounts.discount_start_date','discounts.discount_end_date')
+                    ->get();
+        return response()->json(['data'=>$book]);
     }
 
     /**
@@ -80,7 +78,7 @@ class BookController extends Controller
         $on_sale_books = DB::table('books')
                         ->join('discounts','books.id','=','discounts.book_id')
                         ->join('authors','books.author_id','=','authors.id')
-                        ->select('books.id','books.book_title','books.book_summary','books.book_price','discounts.discount_price','discounts.discount_start_date','discounts.discount_end_date')
+                        ->select('books.id','books.book_title','books.book_price','discounts.discount_price','discounts.discount_start_date','discounts.discount_end_date',DB::raw('books.book_price - discounts.discount_price as discount_amount'))
                         ->where(function($query) {
                                 $query->where('discounts.discount_start_date','<=',today())
                                         ->where('discounts.discount_end_date','>=',today());})
@@ -105,7 +103,7 @@ class BookController extends Controller
                             ->orderBy('books.book_price')
                             ->limit(8)
                             ->get();
-        return $recommended_books;  
+        return response()->json(['data'=>$recommended_books]);  
         
     }
 
@@ -121,23 +119,27 @@ class BookController extends Controller
                         ->orderBy('books.book_price')
                         ->limit(8)
                         ->get();
-        return $popular_books;    
+        return response()->json(['data'=>$popular_books]);   
     }
 
     public function filter_by_category($category) {
         $books = DB::table('books')
                 ->join('categories','books.category_id','=','categories.id')
                 ->where('categories.category_name','=',$category)
+                ->leftJoin('discounts','books.id','=','discounts.book_id')
+                ->select('books.*','discounts.discount_price','discounts.discount_start_date','discounts.discount_end_date')
                 ->get();
-        return $books;
+        return response()->json(['data'=>$books,'count'=>$books->count()]);
     }
     public function filter_by_author($author) {
         $author = str_replace('-',' ',$author);
         $books = DB::table('books')
                 ->join('authors','books.author_id','=','authors.id')
                 ->where('authors.author_name','=',$author)
+                ->leftJoin('discounts','books.id','=','discounts.book_id')
+                ->select('books.*','discounts.discount_price','discounts.discount_start_date','discounts.discount_end_date')
                 ->get();
-        return $books;
+        return response()->json(['data'=>$books, 'count'=>$books->count()]);
     }
     public function filter_by_rating($star) {
         $books = DB::table('reviews')
@@ -150,9 +152,9 @@ class BookController extends Controller
                 ->orderByDesc('avg')
                 ->orderBy('discounts.discount_price')
                 ->orderBy('books.book_price')
-                ->limit(8)
+                // ->limit(8)
                 ->get();
-        return $books;
+        return response()->json(['data'=>$books, 'count'=>$books->count()]);
     }
 
 }

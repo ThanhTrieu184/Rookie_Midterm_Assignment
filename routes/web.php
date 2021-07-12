@@ -59,3 +59,5 @@ Route::get('/detail', function () {
 Route::resource('/book',BookController::class);
 
 Route::get('cart/{id}',[CartController::class, 'add_to_cart'])->name('cart.add');
+// Route::post('cart',[CartController::class, 'add_to_cart'])->name('cart.add');
+// Route::delete('cart/{id}',[CartController::class, 'delete_cart'])->name('cart.delete');

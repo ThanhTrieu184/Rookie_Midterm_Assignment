@@ -45,11 +45,10 @@ class CartController extends Controller
 
     public function delete_cart($id)
     {
-        $cart = session()->get('cart');
+        $cart = Session::get('cart');
         unset($cart[$id]);
         Session::put('cart', $cart);
-        // return redirect()->back();
-        return $cart;
+        return redirect()->back();
     }
     public function update(Request $request)
     {

@@ -1,6 +1,106 @@
-.body {
-	color: red;
-	.content {
-		content: 'just test';
-	}
+.fa-angle-left,
+.fa-angle-right {
+    color: gray;
+    font-size: 36px;
+  }
+.card:hover {
+    cursor: pointer;
+    /* transform: scale(1.02); */
+    box-shadow: 0 14px 28px rgba(0,0,0,0.15), 0 10px 10px rgba(0,0,0,0.20);
+}
+.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #f75454;
+    background-color: transparent;
+    border-color: transparent transparent #f3f3f3;
+    border-bottom: 3px solid !important;
+    font-size: 16px;
+    font-weight: bold;
+  }
+body {
+    background-color: #fff;
+}
+.carousel-control-prev,
+.carousel-control-next {
+  width: 100%;
+}
+.filter-item:hover {
+  cursor: pointer;
+  font-weight: bold;
+  color: #f75454;
+  transform: scale(1.1);
+}
+.panel-heading {
+  cursor: pointer;
+}
+
+.cart-img {
+  width: 100px;
+  height: auto;
+}
+
+.view-all-btn {
+  border-radius: 4px;
+  border: none;
+  text-align: center;
+  font-size: 20px;
+  padding: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.view-all-btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.view-all-btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.view-all-btn:hover span {
+  padding-right: 25px;
+}
+
+.view-all-btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.theme-color {
+  color: #f3f3f3;
+  background-color: #f75454;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.link-without-color {
+  color: #f3f3f3;
+}
+.link-without-color:hover{
+  color: #f3f3f3;
+  text-decoration: none;
+}
+
+.book-title {
+  color: #212529;
+}
+.book-title:hover {
+  text-decoration: none;
+  font-weight: bold;
+  color: #f75454;
+}
+.card-img-fit {
+  height: 18rem;
+  width:100%
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,6 @@ Route::get('books/filter/category/{category}',[BookController::class, 'filter_by
 Route::get('books/filter/author/{author}',[BookController::class, 'filter_by_author'])->name('books.filter_author');
 Route::get('books/filter/rating-star/{star}',[BookController::class, 'filter_by_rating'])->name('books.filter_rating');
 Route::apiResource('books',BookController::class);
-Route::get('books/{id}/comments',[CommentController::class, 'get_book_comments'])->name('books.comment');
-Route::post('cart',[CartController::class, 'add_to_cart'])->name('cart.add');
-Route::delete('cart/{id}',[CartController::class, 'delete_cart'])->name('cart.delete');
+Route::get('books/{id}/comments',[CommentController::class, 'get_book_comments'])->name('book.comment');
+Route::get('categories',[CategoryController::class,'index'])->name('categories');
+
