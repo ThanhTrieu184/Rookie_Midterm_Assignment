@@ -21,7 +21,6 @@
         <a class="navbar-brand" href="#">
             <img src="bookworm_icon.svg" alt="icon" width="70%">
         </a>
-        {{-- <a class="navbar-brand" href="#"><strong>BOOKWORM</strong></a> --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
