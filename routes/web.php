@@ -6,58 +6,62 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\BookController;
 
 // Route::get('book1',[BookController::class, 'index']);
-Route::get('/', function () {
-    if (View::exists('homepage')) {
-        return view('homepage');
-    }
-    else {
-        echo 'Khong ton tai';
-    }
+// Route::get('/', function () {
+//     if (View::exists('homepage')) {
+//         return view('homepage');
+//     }
+//     else {
+//         echo 'Khong ton tai';
+//     }
         
-})->name('homepage');
+// })->name('homepage');
 
-Route::get('/shop', function () {
-    if (View::exists('shoppingpage')) {
-        return view('shoppingpage');
-    }
-    else {
-        echo 'Khong ton tai';
-    }
+// Route::get('/shop', function () {
+//     if (View::exists('shoppingpage')) {
+//         return view('shoppingpage');
+//     }
+//     else {
+//         echo 'Khong ton tai';
+//     }
         
-})->name('shop');
+// })->name('shop');
 
-Route::get('/about', function () {
-    if (View::exists('aboutpage')) {
-        return view('aboutpage');
-    }
-    else {
-        echo 'Khong ton tai';
-    }
+// Route::get('/about', function () {
+//     if (View::exists('aboutpage')) {
+//         return view('aboutpage');
+//     }
+//     else {
+//         echo 'Khong ton tai';
+//     }
         
-})->name('about');
+// })->name('about');
 
-Route::get('/cart', function () {
-    if (View::exists('cartpage')) {
-        return view('cartpage');
-    }
-    else {
-        echo 'Khong ton tai';
-    }
+// Route::get('/cart', function () {
+//     if (View::exists('cartpage')) {
+//         return view('cartpage');
+//     }
+//     else {
+//         echo 'Khong ton tai';
+//     }
         
-})->name('cart');
+// })->name('cart');
 
-Route::get('/detail', function () {
-    if (View::exists('detailpage')) {
-        return view('detailpage');
-    }
-    else {
-        echo 'Khong ton tai';
-    }
+// Route::get('/detail', function () {
+//     if (View::exists('detailpage')) {
+//         return view('detailpage');
+//     }
+//     else {
+//         echo 'Khong ton tai';
+//     }
         
-})->name('detail');
+// })->name('detail');
 
-Route::resource('/book',BookController::class);
+// Route::resource('/book',BookController::class);
 
-Route::get('cart/{id}',[CartController::class, 'add_to_cart'])->name('cart.add');
+// Route::get('cart/{id}',[CartController::class, 'add_to_cart'])->name('cart.add');
 // Route::post('cart',[CartController::class, 'add_to_cart'])->name('cart.add');
 // Route::delete('cart/{id}',[CartController::class, 'delete_cart'])->name('cart.delete');
+
+Route::get('{any}', function () {
+    return view('index'); // or wherever your React app is bootstrapped.
+})->where('any', '.*');

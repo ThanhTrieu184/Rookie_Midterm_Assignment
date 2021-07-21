@@ -10,6 +10,7 @@ class CategoryController extends Controller
 {
     public function index() {
         $categories = DB::table('categories')
+                        ->orderBy('category_name')
                         ->get();
         return response()->json(['categories'=>$categories]);
     }

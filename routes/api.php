@@ -19,29 +19,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// use App\Models\Book;
-// Route::get('books', function() {
-//     return Book::all();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
 // });
 
-// Route::get('books/{id}', function($id) {
-//     return Book::find($id);
-// });
-Route::get('books/filter/on-sale/{paginate?}',[BookController::class, 'get_on_sale_books'])->name('books.onsale');
+
+Route::get('books/filter/on-sale/{paginate?}/{sort?}',[BookController::class, 'get_on_sale_books'])->name('books.onsale');
 Route::get('books/recommended',[BookController::class, 'get_recommended_books'])->name('books.recommended');
 Route::get('books/popular',[BookController::class, 'get_popular_books'])->name('books.popular');
-Route::get('books/filter/category/{category}/{paginate?}',[BookController::class, 'filter_by_category'])->name('books.filter_categogy');
-Route::get('books/filter/author/{author}/{paginate?}',[BookController::class, 'filter_by_author'])->name('books.filter_author');
-Route::get('books/filter/rating-star/{star}/{paginate?}',[BookController::class, 'filter_by_rating'])->name('books.filter_rating');
+Route::get('books/filter/category/{category}/{paginate?}/{sort?}',[BookController::class, 'filter_by_category'])->name('books.filter_categogy');
+Route::get('books/filter/author/{author}/{paginate?}/{sort?}',[BookController::class, 'filter_by_author'])->name('books.filter_author');
+Route::get('books/filter/rating-star/{star}/{paginate?}/{sort?}',[BookController::class, 'filter_by_rating'])->name('books.filter_rating');
 Route::apiResource('books',BookController::class);
-Route::get('books/{id}/comments',[CommentController::class, 'get_book_comments'])->name('book.comment');
+Route::get('books/{id}/comments/{paginate?}/{sort?}/{filter?}',[CommentController::class, 'get_book_comments'])->name('book.comment');
 Route::get('categories',[CategoryController::class,'index'])->name('categories');
 Route::get('authors',[AuthorController::class,'index'])->name('authors');
 Route::get('comments',[CommentController::class,'get_rating_star'])->name('comments');
-
 
 

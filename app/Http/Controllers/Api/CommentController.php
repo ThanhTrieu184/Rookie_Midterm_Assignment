@@ -11,21 +11,36 @@ use PhpParser\Node\Expr\Cast\Array_;
 
 class CommentController extends Controller
 {
-    public function get_book_comments($book_id) {
-        $comments = DB::table('reviews')
-                    ->where('book_id',$book_id)
-                    ->get();
-        $cmt_cnt = $comments->count();
+    public function get_book_comments($book_id, $paginate=5, $sort='desc', $filter=0) {
+        if($sort == 'asc') {
+            $sortBy = 'review_date asc';
+        }
+        else {
+            $sortBy = 'review_date desc';
+        }
+        if($filter == 0) {
+            $filterBy = [1,2,3,4,5];
+        }
+        else{
+            $filterBy = [$filter];
+        }
         $each_star_cnt = DB::table('reviews')
                         ->select('rating_start',DB::raw('count(rating_start) as cnt'))
                         ->where('book_id',$book_id)
                         ->groupBy('rating_start')
                         ->get();
-        return response()->json([
-            'data'=>$comments,
-            'total'=>$cmt_cnt,
-            'each_star_cnt'=>$each_star_cnt
-        ]);
+        $ave = DB::table('reviews')
+                            ->select(DB::raw('round(avg(cast(rating_start as int)),1) as avg'), DB::raw('count(rating_start) as cnt'))
+                            ->where('book_id',$book_id)
+                            ->get();
+        $comments =  DB::table('reviews')
+                    ->where('book_id',$book_id)
+                    ->whereIn('rating_start', $filterBy)
+                    ->orderByRaw($sortBy)
+                    ->paginate($paginate);
+
+        return response()->json(["comment"=>$comments,"each_star_cnt"=>$each_star_cnt,"ave"=>$ave]);
+        
     }
 
     public function get_rating_star() {
@@ -39,4 +54,5 @@ class CommentController extends Controller
                                 ]); 
 
     }
+
 }
