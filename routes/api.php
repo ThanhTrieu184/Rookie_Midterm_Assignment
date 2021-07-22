@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,6 @@ Route::get('books/{id}/comments/{paginate?}/{sort?}/{filter?}',[CommentControlle
 Route::get('categories',[CategoryController::class,'index'])->name('categories');
 Route::get('authors',[AuthorController::class,'index'])->name('authors');
 Route::get('comments',[CommentController::class,'get_rating_star'])->name('comments');
+Route::post('orders',[OrderController::class,'placeOrder'])->name('orders.create');
 
 

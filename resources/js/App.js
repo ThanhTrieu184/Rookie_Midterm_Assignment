@@ -24,11 +24,16 @@ class App extends React.Component {
       navActive: cur
     })
   }
-  handleAddToCart = (book_id, amount) => {
+  handleCartRemove = ()=> {
+    localStorage.setItem('cart_count',localStorage.getItem('cart')!==null?JSON.parse(localStorage.getItem('cart')).length:0);
+    this.setState({cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0})
 
+  }
+  handleAddToCart = (book_id, amount) => {
+    let carts = JSON.parse(localStorage.getItem('cart'))!==null?JSON.parse(localStorage.getItem('cart')):[];
     if (this.isBookAdded(book_id)) {
       
-      let newCart = this.state.cart.map(book => (
+      let newCart = carts.map(book => (
         (book.bookId === book_id && book.amount+amount<=8)?{ ...book, amount: book.amount+amount } : book
       ))
       this.setState({ cart: newCart }, ()=>{localStorage.setItem('cart', JSON.stringify(this.state.cart))
@@ -38,7 +43,7 @@ class App extends React.Component {
     }
     else {
       this.setState({
-        cart: [...this.state.cart, { "bookId": book_id, "amount": amount }], cartCount: this.state.cartCount+1
+        cart: [...carts, { "bookId": book_id, "amount": amount }], cartCount: this.state.cartCount+1
       },()=> {localStorage.setItem('cart', JSON.stringify(this.state.cart));
               localStorage.setItem('cart_count',this.state.cart.length)
               })
@@ -66,7 +71,7 @@ class App extends React.Component {
             <Detail handleAddToCart={this.handleAddToCart} handleActive={this.handleActive} />
           </Route>
           <Route path="/cart">
-            <Cart />
+            <Cart handleCartRemove={this.handleCartRemove}/>
           </Route>
 
           <Footer />

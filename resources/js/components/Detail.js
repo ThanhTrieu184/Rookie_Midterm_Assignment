@@ -9,7 +9,8 @@ export default class Detail extends Component {
         book_price: 0,
         on_sale: 0,
         categoryName: "",
-        amount: 1
+        amount: 1,
+        msg: "",
     }
     componentDidMount() {
         fetch('http://localhost:8012/api/books/' + this.state.bookId)
@@ -29,7 +30,8 @@ export default class Detail extends Component {
         )
     }
     addProduct = (bookId, amount)=>{
-        this.props.handleAddToCart(bookId, amount)
+        this.props.handleAddToCart(bookId, amount);
+        this.setState({msg : <div className="alert alert-success mb-5" role="alert">This book is successfully added!</div>})
     }
 
     increaseValue = ()=>{
@@ -104,9 +106,10 @@ export default class Detail extends Component {
                                 <div className="text-center">
                                     <button onClick={()=>this.addProduct(this.state.bookId, this.state.amount)} className="btn theme-color my-3 border btn-block">Add to cart</button>
                                 </div>
-                                
                             </div>
+                            
                         </div>
+                        {this.state.msg}
                         <div className="row">
                             <div className=" col-lg-12 card">
                                 <div className="card-header text-center font-weight-bold shadow">Write a review</div>

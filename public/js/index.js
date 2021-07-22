@@ -197,7 +197,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       cart: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
-      cartCount: parseInt(localStorage.getItem('cart_count')),
+      cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0,
       navActive: window.location.href.split("#")[1]
     });
 
@@ -207,9 +207,19 @@ var App = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleCartRemove", function () {
+      localStorage.setItem('cart_count', localStorage.getItem('cart') !== null ? JSON.parse(localStorage.getItem('cart')).length : 0);
+
+      _this.setState({
+        cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleAddToCart", function (book_id, amount) {
+      var carts = JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [];
+
       if (_this.isBookAdded(book_id)) {
-        var newCart = _this.state.cart.map(function (book) {
+        var newCart = carts.map(function (book) {
           return book.bookId === book_id && book.amount + amount <= 8 ? _objectSpread(_objectSpread({}, book), {}, {
             amount: book.amount + amount
           }) : book;
@@ -223,7 +233,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         });
       } else {
         _this.setState({
-          cart: [].concat(_toConsumableArray(_this.state.cart), [{
+          cart: [].concat(_toConsumableArray(carts), [{
             "bookId": book_id,
             "amount": amount
           }]),
@@ -275,7 +285,9 @@ var App = /*#__PURE__*/function (_React$Component) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
             path: "/cart",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Cart__WEBPACK_IMPORTED_MODULE_8__.default, {})
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Cart__WEBPACK_IMPORTED_MODULE_8__.default, {
+              handleCartRemove: this.handleCartRemove
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_Footer__WEBPACK_IMPORTED_MODULE_4__.default, {})]
         })
       });
@@ -811,7 +823,8 @@ var Cart = /*#__PURE__*/function (_Component) {
       items: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
       carts: [],
       amounts: [],
-      total: 0
+      total: 0,
+      msg: ""
     });
 
     _defineProperty(_assertThisInitialized(_this), "fetchBook", function (bookId, amount) {
@@ -822,8 +835,6 @@ var Cart = /*#__PURE__*/function (_Component) {
           carts: [].concat(_toConsumableArray(_this.state.carts), [res.data]),
           amounts: [].concat(_toConsumableArray(_this.state.amounts), [amount]),
           total: _this.state.total + res.data[0].final_price * amount
-        }, function () {
-          return console.log(_this.state.total);
         });
       });
     });
@@ -880,7 +891,6 @@ var Cart = /*#__PURE__*/function (_Component) {
         updateAmount = _this.state.items.filter(function (item) {
           return item.bookId != book_id;
         });
-        localStorage.removeItem('cart');
         localStorage.setItem('cart', JSON.stringify(updateAmount));
 
         _this.setState({
@@ -893,8 +903,86 @@ var Cart = /*#__PURE__*/function (_Component) {
             return _this.fetchBook(book.bookId, book.amount);
           });
         });
+
+        _this.props.handleCartRemove();
       } else {
         console.log('false');
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "placeOrder", function () {
+      var csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "X-CSRF-Token": csrfToken,
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        credentials: "same-origin",
+        body: JSON.stringify({
+          'items': _this.state.items,
+          'total': _this.state.total,
+          'carts': _this.state.carts,
+          'amounts': _this.state.amounts
+        })
+      };
+      fetch('http://localhost:8012/api/orders', requestOptions).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response.data == 'success') {
+          localStorage.clear();
+
+          _this.setState({
+            items: [],
+            carts: [],
+            total: 0,
+            amounts: []
+          }, function () {
+            return _this.alertMsg(response.data);
+          });
+        } else if (response.data == 'empty') {
+          _this.alertMsg(response.data);
+        } else {
+          _this.alertMsg(response.data);
+        }
+      })["catch"](function (error) {
+        return console.error(error);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "alertMsg", function (msg) {
+      // let alert = <div class="alert alert-primary" role="alert"></div>
+      if (msg == 'success') {
+        _this.props.handleCartRemove();
+
+        _this.setState({
+          msg: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "alert alert-success",
+            role: "alert",
+            children: "Order successful! Redirect in 10s..."
+          })
+        }, function () {
+          return window.setTimeout(function () {
+            window.location.href = '/';
+          }, 10000);
+        });
+      } else if (msg == 'empty') {
+        _this.setState({
+          msg: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "alert alert-warning",
+            role: "alert",
+            children: "Cart is empty!"
+          })
+        });
+      } else {
+        _this.setState({
+          msg: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "alert alert-danger",
+            role: "alert",
+            children: ["Book with id ", msg, " is not available!"]
+          })
+        });
       }
     });
 
@@ -1032,9 +1120,9 @@ var Cart = /*#__PURE__*/function (_Component) {
                 })
               })
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "col-lg-4",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
               className: "card text-center",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
                 className: "card-header",
@@ -1042,13 +1130,16 @@ var Cart = /*#__PURE__*/function (_Component) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
                 className: "card-body",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("h1", {
-                  children: ["$", this.state.total]
+                  children: ["$", Number(this.state.total.toFixed(2))]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
                   className: "btn theme-color mt-5 border btn-block",
+                  onClick: function onClick() {
+                    return _this3.placeOrder();
+                  },
                   children: " Place order"
                 })]
               })]
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), this.state.msg]
           })]
         })
       });
@@ -1557,11 +1648,20 @@ var Detail = /*#__PURE__*/function (_Component) {
       book_price: 0,
       on_sale: 0,
       categoryName: "",
-      amount: 1
+      amount: 1,
+      msg: ""
     });
 
     _defineProperty(_assertThisInitialized(_this), "addProduct", function (bookId, amount) {
       _this.props.handleAddToCart(bookId, amount);
+
+      _this.setState({
+        msg: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "alert alert-success mb-5",
+          role: "alert",
+          children: "This book is successfully added!"
+        })
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "increaseValue", function () {
@@ -1744,7 +1844,7 @@ var Detail = /*#__PURE__*/function (_Component) {
                   })
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+            }), this.state.msg, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
               className: "row",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                 className: " col-lg-12 card",
