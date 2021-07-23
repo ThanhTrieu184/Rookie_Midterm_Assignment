@@ -194,7 +194,7 @@ export default class Shop extends Component {
                                     <div className="panel panel-default">
                                         <div className="panel-heading">
                                             <p className="panel-title h6" data-toggle="collapse" href="#collapse1">
-                                                Category <span aria-hidden="true" className="float-right"><i class="fas fa-sort-down"></i></span>
+                                                Category <span aria-hidden="true" className="float-right"><i className="fas fa-sort-down"></i></span>
                                             </p>
                                         </div>
                                         <div id="collapse1" className="panel-collapse collapse">
@@ -218,7 +218,7 @@ export default class Shop extends Component {
                                     <div className="panel panel-default">
                                         <div className="panel-heading">
                                             <p className="panel-title h6" data-toggle="collapse" href="#collapse2">
-                                                Author <span aria-hidden="true" className="float-right"><i class="fas fa-sort-down"></i></span>
+                                                Author <span aria-hidden="true" className="float-right"><i className="fas fa-sort-down"></i></span>
                                             </p>
                                         </div>
                                         <div id="collapse2" className="panel-collapse collapse">
@@ -243,7 +243,7 @@ export default class Shop extends Component {
                                     <div className="panel panel-default">
                                         <div className="panel-heading">
                                             <p className="panel-title h6" data-toggle="collapse" href="#collapse3">
-                                                Rating Review <span aria-hidden="true" className="float-right"><i class="fas fa-sort-down"></i></span>
+                                                Rating Review <span aria-hidden="true" className="float-right"><i className="fas fa-sort-down"></i></span>
                                             </p>
                                         </div>
                                         <div id="collapse3" className="panel-collapse collapse">
@@ -252,9 +252,9 @@ export default class Shop extends Component {
                                                     <hr />
                                                 </div>
                                                 {this.state.rating.map(r => (
-                                                    <div className="row mb-3 filter-item" onClick={() => this.filter('rating-star', r.star, r.star + ' star')}>
-                                                        <div key={"star" + r.star} className="col-4">{r.star} <i className="fas fa-star "></i></div>
-                                                        {/* <div className="col-8 text-right"><i className="badge theme-color">{r.cnt}</i></div> */}
+                                                    <div key={"star" + r.star} className="row mb-3 filter-item" onClick={() => this.filter('rating-star', r.star, r.star + ' star')}>
+                                                        <div className="col-4">{r.star} <i className="fas fa-star "></i></div>
+                                                        <div className="col-8 text-right"><i className="badge theme-color">{r.cnt}</i></div>
                                                     </div>
                                                 ))}
 
@@ -277,7 +277,7 @@ export default class Shop extends Component {
                             <nav className="mb-4">
                                 <ul className="pagination pagination-circle pg-blue mb-0 panel-heading">
 
-                                    <li key="first" className={this.state.currentPage === 1 ? "page-item clearfix d-none d-md-block disabled" : "page-item clearfix d-none d-md-block"}><Link onClick={() => this.handlePaginate(this.state.firstLink)}
+                                    <li className={this.state.currentPage === 1 ? "page-item clearfix d-none d-md-block disabled" : "page-item clearfix d-none d-md-block"}><Link onClick={() => this.handlePaginate(this.state.firstLink)}
                                         className="page-link waves-effect waves-effect">First</Link></li>
                                     {this.state.links.slice(0, 1).map(prev => (
                                         <li key={prev.label} className={(this.state.currentPage === 1) ? "page-item disabled" : "page-item"}>
@@ -303,7 +303,7 @@ export default class Shop extends Component {
                                             </Link>
                                         </li>
                                     ))}
-                                    <li key="last" className={(this.state.currentPage === this.state.totalPage) ? "page-item clearfix d-none d-md-block disabled" : "page-item clearfix d-none d-md-block"}>
+                                    <li className={(this.state.currentPage === this.state.totalPage) ? "page-item clearfix d-none d-md-block disabled" : "page-item clearfix d-none d-md-block"}>
                                         <Link className="page-link waves-effect waves-effect" onClick={() => this.handlePaginate(this.state.lastLink)}>Last</Link>
                                     </li>
                                 </ul>

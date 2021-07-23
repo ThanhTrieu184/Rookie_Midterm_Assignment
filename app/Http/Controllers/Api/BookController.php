@@ -78,7 +78,7 @@ class BookController extends Controller
 
     public function get_on_sale_books($paginate =20, $sort="on-sale") {
         if($sort == 'popular'){
-            $sortBy = 'cnt desc';
+            $sortBy = 'cnt desc, final_price asc';
         }
         else if(($sort == 'price-asc')){
             $sortBy = 'final_price asc';
@@ -87,22 +87,16 @@ class BookController extends Controller
             $sortBy = 'final_price desc';
         }
         else {
-            $sortBy = 'books.book_price - discounts.discount_price desc';
+            $sortBy = 'on_sale desc';
         }
         $on_sale_books = DB::table('books')
-                        ->join('discounts','books.id','=','discounts.book_id')
+                        ->leftJoin('discounts','books.id','=','discounts.book_id')
                         ->join('authors','books.author_id','=','authors.id')
                         ->leftJoin('reviews','books.id','reviews.book_id')
                         ->select('books.id','books.book_title','books.book_price','books.book_cover_photo','books.author_id','authors.author_name','discounts.discount_price','discounts.discount_start_date','discounts.discount_end_date',
                                 DB::raw('CASE WHEN (discounts.discount_start_date <= CURRENT_DATE and discounts.discount_end_date >= CURRENT_DATE) or (discounts.discount_start_date <= CURRENT_DATE and discounts.discount_end_date is null) THEN books.book_price - discounts.discount_price ELSE 0 END as on_sale'),
                                 DB::raw('CASE WHEN (discounts.discount_start_date <= CURRENT_DATE and discounts.discount_end_date >= CURRENT_DATE) or (discounts.discount_start_date <= CURRENT_DATE and discounts.discount_end_date is null) THEN discounts.discount_price ELSE books.book_price END as final_price'),
                                 DB::raw('count(reviews.book_id) as cnt'))
-                        ->where(function($query) {
-                                $query->where('discounts.discount_start_date','<=',today())
-                                        ->where('discounts.discount_end_date','>=',today());})
-                        ->orWhere(function($query) {
-                            $query->where('discounts.discount_start_date','<=',today())
-                                    ->where('discounts.discount_end_date',null);})
                         ->groupBy('books.id','books.book_title','books.book_price','books.book_cover_photo','books.author_id','authors.author_name','discounts.discount_price','discounts.discount_start_date','discounts.discount_end_date')
                         ->orderByRaw($sortBy)
                         ->paginate($paginate);

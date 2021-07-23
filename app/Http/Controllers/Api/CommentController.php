@@ -46,11 +46,11 @@ class CommentController extends Controller
     public function get_rating_star() {
         $book = new BookController();
         
-        return response()->json(['data' => [['star'=>1,'cnt'=>$book->filter_by_rating(1)->original['total']],
-                                            ['star'=>2,'cnt'=>$book->filter_by_rating(2)->original['total']],
-                                            ['star'=>3,'cnt'=>$book->filter_by_rating(3)->original['total']],
-                                            ['star'=>4,'cnt'=>$book->filter_by_rating(4)->original['total']],
-                                            ['star'=>5,'cnt'=>$book->filter_by_rating(5)->original['total']]]
+        return response()->json(['data' => [['star'=>1,'cnt'=>$book->filter_by_rating(1)->original->total()],
+                                            ['star'=>2,'cnt'=>$book->filter_by_rating(2)->original->total()],
+                                            ['star'=>3,'cnt'=>$book->filter_by_rating(3)->original->total()],
+                                            ['star'=>4,'cnt'=>$book->filter_by_rating(4)->original->total()],
+                                            ['star'=>5,'cnt'=>$book->filter_by_rating(5)->original->total()]]
                                 ]); 
 
     }

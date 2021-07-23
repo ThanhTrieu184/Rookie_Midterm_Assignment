@@ -93,7 +93,6 @@ export default class Cart extends Component {
             .catch(error => console.error(error));
     }
     alertMsg = (msg) => {
-        // let alert = <div class="alert alert-primary" role="alert"></div>
         if (msg == 'success') {
             this.props.handleCartRemove();
             this.setState({msg: <div className="alert alert-success" role="alert">Order successful! Redirect in 10s...</div>},()=> window.setTimeout(function() {
@@ -104,7 +103,10 @@ export default class Cart extends Component {
             this.setState({msg: <div className="alert alert-warning" role="alert">Cart is empty!</div>})
         }
         else {
-            this.setState({msg: <div className="alert alert-danger" role="alert">Book with id {msg} is not available!</div>})
+            let invalidBookRemoved = JSON.parse(localStorage.getItem('cart')).filter((item)=>item.bookId != msg)
+            localStorage.setItem('cart',JSON.stringify(invalidBookRemoved));
+            this.setState({msg: <div className="alert alert-danger" role="alert">Book with id {msg} is not available!</div>,items: invalidBookRemoved,amounts: [], total: 0, carts: []},() => this.state.items.map((book) => (this.fetchBook(book.bookId, book.amount))))
+            this.props.handleCartRemove();
         }
     }
 
@@ -121,22 +123,23 @@ export default class Cart extends Component {
                         <div className="card">
                             <div className="table-responsive">
                                 <table className="table">
-                                    <tr className="text-center card-header">
-                                        <th className="cart-img"></th>
-                                        <th className="font-weight-bold">
-                                            <strong>Book Title</strong>
-                                        </th>
-                                        <th className="font-weight-bold">
-                                            <strong>Price</strong>
-                                        </th>
-                                        <th className="font-weight-bold">
-                                            <strong>Quantity</strong>
-                                        </th>
-                                        <th className="font-weight-bold">
-                                            <strong>Total</strong>
-                                        </th>
-
-                                    </tr>
+                                    <thead className="text-center card-header">
+                                        <tr>
+                                            <td className="cart-img"></td>
+                                            <td className="font-weight-bold">
+                                                <strong>Book Title</strong>
+                                            </td>
+                                            <td className="font-weight-bold">
+                                                <strong>Price</strong>
+                                            </td>
+                                            <td className="font-weight-bold">
+                                                <strong>Quantity</strong>
+                                            </td>
+                                            <td className="font-weight-bold">
+                                                <strong>Total</strong>
+                                            </td>
+                                        </tr>
+                                    </thead>
                                     <tbody className="card-body">
                                         {this.state.carts.map((book, idx) => (
 
@@ -144,7 +147,7 @@ export default class Cart extends Component {
 
                                                 <td>
                                                     <Link>
-                                                        <img src={"./bookcover/" + book[0].book_cover_photo + ".jpg"} alt="" className="img-fluid mx-auto d-block" />
+                                                        <img src={book[0].book_cover_photo != null?"./bookcover/"+book[0].book_cover_photo+".jpg":"./bookcover/default.jpg"} alt="" className="img-fluid mx-auto d-block" />
                                                     </Link>
                                                 </td>
                                                 <td>

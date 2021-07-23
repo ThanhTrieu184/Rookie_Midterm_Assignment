@@ -952,7 +952,6 @@ var Cart = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "alertMsg", function (msg) {
-      // let alert = <div class="alert alert-primary" role="alert"></div>
       if (msg == 'success') {
         _this.props.handleCartRemove();
 
@@ -976,13 +975,28 @@ var Cart = /*#__PURE__*/function (_Component) {
           })
         });
       } else {
+        var invalidBookRemoved = JSON.parse(localStorage.getItem('cart')).filter(function (item) {
+          return item.bookId != msg;
+        });
+        localStorage.setItem('cart', JSON.stringify(invalidBookRemoved));
+
         _this.setState({
           msg: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
             className: "alert alert-danger",
             role: "alert",
             children: ["Book with id ", msg, " is not available!"]
-          })
+          }),
+          items: invalidBookRemoved,
+          amounts: [],
+          total: 0,
+          carts: []
+        }, function () {
+          return _this.state.items.map(function (book) {
+            return _this.fetchBook(book.bookId, book.amount);
+          });
         });
+
+        _this.props.handleCartRemove();
       }
     });
 
@@ -1025,31 +1039,33 @@ var Cart = /*#__PURE__*/function (_Component) {
                 className: "table-responsive",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
                   className: "table",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
                     className: "text-center card-header",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                      className: "cart-img"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                      className: "font-weight-bold",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
-                        children: "Book Title"
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                      className: "font-weight-bold",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
-                        children: "Price"
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                      className: "font-weight-bold",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
-                        children: "Quantity"
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-                      className: "font-weight-bold",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
-                        children: "Total"
-                      })
-                    })]
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "cart-img"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "font-weight-bold",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+                          children: "Book Title"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "font-weight-bold",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+                          children: "Price"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "font-weight-bold",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+                          children: "Quantity"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                        className: "font-weight-bold",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+                          children: "Total"
+                        })
+                      })]
+                    })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
                     className: "card-body",
                     children: this.state.carts.map(function (book, idx) {
@@ -1058,7 +1074,7 @@ var Cart = /*#__PURE__*/function (_Component) {
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-                              src: "./bookcover/" + book[0].book_cover_photo + ".jpg",
+                              src: book[0].book_cover_photo != null ? "./bookcover/" + book[0].book_cover_photo + ".jpg" : "./bookcover/default.jpg",
                               alt: "",
                               className: "img-fluid mx-auto d-block"
                             })
@@ -2833,7 +2849,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                           "aria-hidden": "true",
                           className: "float-right",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-                            "class": "fas fa-sort-down"
+                            className: "fas fa-sort-down"
                           })
                         })]
                       })
@@ -2876,7 +2892,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                           "aria-hidden": "true",
                           className: "float-right",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-                            "class": "fas fa-sort-down"
+                            className: "fas fa-sort-down"
                           })
                         })]
                       })
@@ -2922,7 +2938,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                           "aria-hidden": "true",
                           className: "float-right",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-                            "class": "fas fa-sort-down"
+                            className: "fas fa-sort-down"
                           })
                         })]
                       })
@@ -2935,18 +2951,24 @@ var Shop = /*#__PURE__*/function (_Component) {
                           className: "divider",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("hr", {})
                         }), this.state.rating.map(function (r) {
-                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                             className: "row mb-3 filter-item",
                             onClick: function onClick() {
                               return _this8.filter('rating-star', r.star, r.star + ' star');
                             },
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
                               className: "col-4",
                               children: [r.star, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
                                 className: "fas fa-star "
                               })]
-                            }, "star" + r.star)
-                          });
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                              className: "col-8 text-right",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                                className: "badge theme-color",
+                                children: r.cnt
+                              })
+                            })]
+                          }, "star" + r.star);
                         })]
                       })
                     })]
@@ -2984,7 +3006,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                       className: "page-link waves-effect waves-effect",
                       children: "First"
                     })
-                  }, "first"), this.state.links.slice(0, 1).map(function (prev) {
+                  }), this.state.links.slice(0, 1).map(function (prev) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
                       className: _this8.state.currentPage === 1 ? "page-item disabled" : "page-item",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
@@ -3040,7 +3062,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                       },
                       children: "Last"
                     })
-                  }, "last")]
+                  })]
                 })
               })
             })]
