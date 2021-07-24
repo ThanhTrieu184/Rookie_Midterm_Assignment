@@ -143,7 +143,7 @@ export default class CustomerReview extends Component {
                         {this.state.comments.map(comment => (
                             <div key={comment.id} className="row mx-3">
                                 <div className="col-sm-12 col-12">
-                                    <p><strong className="h5 font-weight-bold">{comment.review_title}</strong>| {comment.rating_start} <i className="fas fa-star"></i>
+                                    <p><strong className="h5 font-weight-bold">{comment.review_title}</strong> | {comment.rating_start} <i className="fas fa-star"></i>
                                     </p>
                                     <div className="card-data">
                                         <p className="text-muted article"><small>{comment.review_details}</small></p>
@@ -161,27 +161,27 @@ export default class CustomerReview extends Component {
                                 className="page-link waves-effect waves-effect">First</i></li>
                             {this.state.links.slice(0, 1).map(prev => (
                                 <li key={prev.label} className={(this.state.currentPage === 1) ? "page-item disabled" : "page-item"}>
-                                    <i onClick={() => this.handlePaginate(prev.url)} className="page-link waves-effect waves-effect" aria-label="Previous">
+                                    <p onClick={() => this.handlePaginate(prev.url)} className="page-link waves-effect waves-effect" aria-label="Previous">
                                         <span aria-hidden="true">«</span>
 
                                         <span className="sr-only">Previous</span>
-                                    </i>
+                                    </p>
                                 </li>
                             ))}
                             {this.state.links.slice(1, this.state.links.length - 1).map(link => (
-                                <li key={link.label} className={(link.active === true) ? "page-item active" : "page-item"}><i onClick={() => this.handlePaginate(link.url)} className="page-link waves-effect waves-effect">{link.label}</i></li>
+                                <li key={link.label} className={(link.active === true) ? "page-item active" : "page-item"}><p onClick={() => this.handlePaginate(link.url)} className="page-link waves-effect waves-effect">{link.label}</p></li>
                             ))}
                             {this.state.links.slice(this.state.links.length - 1, this.state.links.length).map(next => (
                                 <li key={next.label} className={(this.state.currentPage === this.state.totalPage) ? "page-item disabled" : "page-item"}>
-                                    <i onClick={() => this.handlePaginate(next.url)} className="page-link waves-effect waves-effect" aria-label="Next">
+                                    <p onClick={() => this.handlePaginate(next.url)} className="page-link waves-effect waves-effect" aria-label="Next">
                                         <span aria-hidden="true">»</span>
 
                                         <span className="sr-only">Next</span>
-                                    </i>
+                                    </p>
                                 </li>
                             ))}
                             <li key="last" className={(this.state.currentPage === this.state.totalPage) ? "page-item clearfix d-none d-md-block disabled" : "page-item clearfix d-none d-md-block"}>
-                                <i className="page-link waves-effect waves-effect" onClick={() => this.handlePaginate(this.state.lastLink)}>Last</i>
+                                <Link className="page-link waves-effect waves-effect" onClick={() => this.handlePaginate(this.state.lastLink)}>Last</Link>
                             </li>
                         </ul>
                     </nav>

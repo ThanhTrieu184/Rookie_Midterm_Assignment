@@ -155,12 +155,12 @@ export default class Shop extends Component {
                     <div className="col-lg-2">
                         <p className=" h3">Filter By </p>
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-3 col-sm-">
                         <i>Showing {this.state.fromPage} - {this.state.toPage} of {this.state.totalBooks} books</i>
                     </div>
                     <div className="col-lg-7 text-right">
                         <div className="row">
-                            <div className=" col-lg-10 dropdown">
+                            <div className=" col-lg-10 my-1 dropdown">
                                 <button className="btn theme-color dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by {this.state.sortBy}</button>
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -170,7 +170,7 @@ export default class Shop extends Component {
                                     <Link className="dropdown-item" onClick={() => this.handleSort("price-desc")}>Sort by price: high to low</Link>
                                 </div>
                             </div>
-                            <div className="dropdown col-lg-2">
+                            <div className="dropdown my-1 col-lg-2">
                                 <button className="btn theme-color dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Show {this.state.booksPerPage}
@@ -275,7 +275,7 @@ export default class Shop extends Component {
 
                         <div className="row justify-content-center mb-4">
                             <nav className="mb-4">
-                                <ul className="pagination pagination-circle pg-blue mb-0 panel-heading">
+                                <ul className="pagination pagination-circle mb-0 panel-heading">
 
                                     <li className={this.state.currentPage === 1 ? "page-item clearfix d-none d-md-block disabled" : "page-item clearfix d-none d-md-block"}><Link onClick={() => this.handlePaginate(this.state.firstLink)}
                                         className="page-link waves-effect waves-effect">First</Link></li>

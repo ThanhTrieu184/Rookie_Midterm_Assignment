@@ -100,13 +100,14 @@ export default class Cart extends Component {
             }, 10000))
         }
         else if (msg == 'empty') {
-            this.setState({msg: <div className="alert alert-warning" role="alert">Cart is empty!</div>})
+            this.setState({msg: <div className="alert alert-warning" role="alert">Cart is empty!</div>},()=>setTimeout(()=>this.setState({msg: ""}),5000))
         }
         else {
             let invalidBookRemoved = JSON.parse(localStorage.getItem('cart')).filter((item)=>item.bookId != msg)
             localStorage.setItem('cart',JSON.stringify(invalidBookRemoved));
             this.setState({msg: <div className="alert alert-danger" role="alert">Book with id {msg} is not available!</div>,items: invalidBookRemoved,amounts: [], total: 0, carts: []},() => this.state.items.map((book) => (this.fetchBook(book.bookId, book.amount))))
             this.props.handleCartRemove();
+            setTimeout(()=>this.setState({msg: ""}),5000)
         }
     }
 
@@ -172,7 +173,7 @@ export default class Cart extends Component {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <strong>${this.state.amounts[idx] * book[0].final_price}</strong>
+                                                    <strong>${Number((this.state.amounts[idx] * book[0].final_price).toFixed(2))}</strong>
                                                 </td>
 
                                             </tr>

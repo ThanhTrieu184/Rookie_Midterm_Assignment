@@ -36,6 +36,7 @@ Route::get('books/{id}/comments/{paginate?}/{sort?}/{filter?}',[CommentControlle
 Route::get('categories',[CategoryController::class,'index'])->name('categories');
 Route::get('authors',[AuthorController::class,'index'])->name('authors');
 Route::get('comments',[CommentController::class,'get_rating_star'])->name('comments');
+Route::post('comments',[CommentController::class,'upload_comment'])->name('comments.create');
 Route::post('orders',[OrderController::class,'placeOrder'])->name('orders.create');
 
 

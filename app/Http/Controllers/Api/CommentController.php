@@ -8,9 +8,31 @@ use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\FuncCall;
 use App\Http\Controllers\Api\BookController;
 use PhpParser\Node\Expr\Cast\Array_;
+use App\Models\Book;
 
 class CommentController extends Controller
 {
+    public function upload_comment(Request $request) {
+        $review = json_decode($request->getContent());
+        $review_title  = $review->review_title;
+        $review_detail  = $review->review_detail;
+        $rating_star  = $review->rating_star;
+        $book_id = $review->book_id;
+        if(Book::find($book_id)==null){
+            return response()->json(['data'=>'not found']);
+        }
+        else if($review_title != null && $rating_star!=null) {
+
+            DB::table('reviews')->insert(
+                ['book_id' => $book_id, 'review_title' => $review_title, 'review_details'=>$review_detail, 'review_date'=>now(), 'rating_start'=>$rating_star]);
+        
+            return response()->json(['data'=>'success']);
+        }
+        else {
+            return response()->json(['data'=>'failed']);
+        }
+        // return response()->json(['data'=>$review_title]);
+    }
     public function get_book_comments($book_id, $paginate=5, $sort='desc', $filter=0) {
         if($sort == 'asc') {
             $sortBy = 'review_date asc';

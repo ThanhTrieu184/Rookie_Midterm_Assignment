@@ -104,3 +104,23 @@ body {
   height: 18rem;
   width:100%
 }
+
+.page-item.active .page-link{
+  background-color: #f75454 !important;
+  color: #f3f3f3 !important;
+  border-color: #f75454 !important;
+}
+
+.page-link {
+  color: #f75454;
+}
+.disabled {
+  color: #d1cdcd;
+}
+
+.page-item .page-link:hover{
+  cursor: pointer;
+  background-color: #ffebee;
+  color:#f75454;
+}
+

@@ -21,7 +21,7 @@ class OrderController extends Controller
         }
         if($items != null) {
             $id = DB::table('orders')->insertGetId(
-                ['order_date' => today(), 'order_amount' => $total]
+                ['order_date' => now(), 'order_amount' => $total]
             );
 
             for($i=0; $i<count($items); $i++) {
