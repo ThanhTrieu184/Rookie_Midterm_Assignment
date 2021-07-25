@@ -147,7 +147,7 @@ export default class Shop extends Component {
             <div className="container" style={{ marginTop: "80px" }}>
                 <div className="row">
                     <div className="col-lg-12">
-                        <p><strong className="h3">Books</strong><i> (Filtered by {this.state.filterType} <strong> {this.state.filterName}</strong>)</i></p>
+                        <p><strong className="h3">Books</strong><i> (Filtered by {this.state.filterType} <strong> { this.state.filterName.slice(0, 1).toUpperCase() + this.state.filterName.slice(1, this.state.filterName.length)}</strong>)</i></p>
                     </div>
                 </div>
                 <hr />

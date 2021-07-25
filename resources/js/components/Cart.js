@@ -152,7 +152,7 @@ export default class Cart extends Component {
                                                     </Link>
                                                 </td>
                                                 <td>
-                                                    <p className="h6">{book[0].book_title}</p>
+                                                    <p onClick={()=>window.open("/#/detail/"+book[0].id)} className="h6 book-title">{book[0].book_title}</p>
                                                 </td>
                                                 <td>${book[0].final_price}</td>
                                                 <td>

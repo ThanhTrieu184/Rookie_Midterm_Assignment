@@ -198,7 +198,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       cart: JSON.parse(localStorage.getItem('cart')) !== null ? JSON.parse(localStorage.getItem('cart')) : [],
       cartCount: localStorage.getItem('cart_count') !== null ? parseInt(localStorage.getItem('cart_count')) : 0,
-      navActive: window.location.href.split("#")[1]
+      navActive: window.location.href.split("#").pop() == "http://localhost:8012/" ? "/" : window.location.href.split("#").pop()
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleActive", function (cur) {
@@ -1093,7 +1093,10 @@ var Cart = /*#__PURE__*/function (_Component) {
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-                            className: "h6",
+                            onClick: function onClick() {
+                              return window.open("/#/detail/" + book[0].id);
+                            },
+                            className: "h6 book-title",
                             children: book[0].book_title
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
@@ -2515,6 +2518,7 @@ var NavBar = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      console.log(this.props.navActive);
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.HashRouter, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("nav", {
           className: "navbar navbar-expand-sm bg-light navbar-light fixed-top",
@@ -2827,7 +2831,7 @@ var Shop = /*#__PURE__*/function (_Component) {
                 children: "Books"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("i", {
                 children: [" (Filtered by ", this.state.filterType, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("strong", {
-                  children: [" ", this.state.filterName]
+                  children: [" ", this.state.filterName.slice(0, 1).toUpperCase() + this.state.filterName.slice(1, this.state.filterName.length)]
                 }), ")"]
               })]
             })
@@ -3220,7 +3224,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.fa-angle-left,\n.fa-angle-right {\n  color: gray;\n  font-size: 36px;\n}\n\n.card:hover {\n  cursor: pointer;\n  /* transform: scale(1.02); */\n  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.2);\n}\n\n.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {\n  color: #f75454;\n  background-color: transparent;\n  border-color: transparent transparent #f3f3f3;\n  border-bottom: 3px solid !important;\n  font-size: 16px;\n  font-weight: bold;\n}\n\nbody {\n  background-color: #fff;\n}\n\n.carousel-control-prev,\n.carousel-control-next {\n  width: 100%;\n}\n\n.filter-item:hover {\n  cursor: pointer;\n  font-weight: bold;\n  color: #f75454;\n  transform: scale(1.1);\n}\n\n.panel-heading {\n  cursor: pointer;\n}\n\n.cart-img {\n  width: 100px;\n  height: auto;\n}\n\n.view-all-btn {\n  border-radius: 4px;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 5px;\n  transition: all 0.5s;\n  cursor: pointer;\n}\n\n.view-all-btn span {\n  cursor: pointer;\n  display: inline-block;\n  position: relative;\n  transition: 0.5s;\n}\n\n.view-all-btn span:after {\n  content: \"»\";\n  position: absolute;\n  opacity: 0;\n  top: 0;\n  right: -20px;\n  transition: 0.5s;\n}\n\n.view-all-btn:hover span {\n  padding-right: 25px;\n}\n\n.view-all-btn:hover span:after {\n  opacity: 1;\n  right: 0;\n}\n\n.theme-color {\n  color: #f3f3f3;\n  background-color: #f75454;\n}\n\n.footer {\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n}\n\n.link-without-color {\n  color: #f3f3f3;\n}\n\n.link-without-color:hover {\n  color: #f3f3f3;\n  text-decoration: none;\n}\n\n.book-title {\n  color: #212529;\n}\n\n.book-title:hover {\n  text-decoration: none;\n  font-weight: bold;\n  color: #f75454;\n}\n\n.card-img-fit {\n  height: 18rem;\n  width: 100%;\n}\n\n.page-item.active .page-link {\n  background-color: #f75454 !important;\n  color: #f3f3f3 !important;\n  border-color: #f75454 !important;\n}\n\n.page-link {\n  color: #f75454;\n}\n\n.disabled {\n  color: #d1cdcd;\n}\n\n.page-item .page-link:hover {\n  cursor: pointer;\n  background-color: #ffebee;\n  color: #f75454;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.fa-angle-left,\n.fa-angle-right {\n  color: gray;\n  font-size: 36px;\n}\n\n.card:hover {\n  cursor: pointer;\n  /* transform: scale(1.02); */\n  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.2);\n}\n\n.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {\n  color: #f75454;\n  background-color: transparent;\n  border-color: transparent transparent #f3f3f3;\n  border-bottom: 3px solid !important;\n  font-size: 16px;\n  font-weight: bold;\n}\n\nbody {\n  background-color: #fff;\n}\n\n.carousel-control-prev,\n.carousel-control-next {\n  width: 100%;\n}\n\n.filter-item:hover {\n  cursor: pointer;\n  font-weight: bold;\n  color: #f75454;\n  transform: scale(1.1);\n}\n\n.panel-heading {\n  cursor: pointer;\n}\n\n.cart-img {\n  width: 100px;\n  height: auto;\n}\n\n.view-all-btn {\n  border-radius: 4px;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 5px;\n  transition: all 0.5s;\n  cursor: pointer;\n}\n\n.view-all-btn span {\n  cursor: pointer;\n  display: inline-block;\n  position: relative;\n  transition: 0.5s;\n}\n\n.view-all-btn span:after {\n  content: \"»\";\n  position: absolute;\n  opacity: 0;\n  top: 0;\n  right: -20px;\n  transition: 0.5s;\n}\n\n.view-all-btn:hover span {\n  padding-right: 25px;\n}\n\n.view-all-btn:hover span:after {\n  opacity: 1;\n  right: 0;\n}\n\n.theme-color {\n  color: #f3f3f3;\n  background-color: #f75454;\n}\n\n.footer {\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n}\n\n.link-without-color {\n  color: #f3f3f3;\n}\n\n.link-without-color:hover {\n  color: #f3f3f3;\n  text-decoration: none;\n}\n\n.book-title {\n  color: #212529;\n}\n\n.book-title:hover {\n  text-decoration: none;\n  color: #f75454;\n}\n\n.card-img-fit {\n  height: 18rem;\n  width: 100%;\n}\n\n.page-item.active .page-link {\n  background-color: #f75454 !important;\n  color: #f3f3f3 !important;\n  border-color: #f75454 !important;\n}\n\n.page-link {\n  color: #f75454;\n}\n\n.disabled {\n  color: #d1cdcd;\n}\n\n.page-item .page-link:hover {\n  cursor: pointer;\n  background-color: #ffebee;\n  color: #f75454;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

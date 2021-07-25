@@ -7,6 +7,7 @@ class NavBar extends React.Component {
     }
 
     render() {
+        console.log(this.props.navActive)
         return (
             <HashRouter>
                 <nav className="navbar navbar-expand-sm bg-light navbar-light fixed-top">

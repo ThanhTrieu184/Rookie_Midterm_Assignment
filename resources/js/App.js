@@ -12,9 +12,9 @@ class App extends React.Component {
   state = {
     cart: JSON.parse(localStorage.getItem('cart'))!==null?JSON.parse(localStorage.getItem('cart')):[],
     cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0,
-    navActive: window.location.href.split("#")[1]
+    navActive: window.location.href.split("#").pop()=="http://localhost:8012/"?"/":window.location.href.split("#").pop(),
   }
-
+  
   isBookAdded(bookId) {
     return this.state.cart.some(item => bookId === item.bookId);
   }
