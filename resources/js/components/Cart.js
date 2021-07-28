@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import {LOCAL} from '../Helper'
 
 
 
@@ -12,7 +13,7 @@ export default class Cart extends Component {
         msg: "",
     }
     fetchBook = (bookId, amount) => {
-        fetch('http://localhost:8012/api/books/' + bookId)
+        fetch(LOCAL+'/api/books/' + bookId)
             .then(res => res.json())
             .then((res) => {
                 this.setState({
@@ -76,7 +77,7 @@ export default class Cart extends Component {
             credentials: "same-origin",
             body: JSON.stringify({ 'items': this.state.items, 'total': this.state.total, 'carts': this.state.carts, 'amounts': this.state.amounts })
         };
-        fetch('http://localhost:8012/api/orders', requestOptions)
+        fetch(LOCAL+'/api/orders', requestOptions)
             .then(response => response.json())
             .then((response) => {
                 if (response.data == 'success') {

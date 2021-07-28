@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Book from './Book'
+import {LOCAL} from '../Helper'
+
 export default class Feature extends Component {
     
     state = {
@@ -7,7 +9,7 @@ export default class Feature extends Component {
     }
     componentDidMount() {
         if(this.props.type === "recommended") {
-            fetch("http://localhost:8012/api/books/recommended")
+            fetch(LOCAL+"/api/books/recommended")
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -19,7 +21,7 @@ export default class Feature extends Component {
                 )
         }
         else if (this.props.type === "popular") {
-            fetch("http://localhost:8012/api/books/popular")
+            fetch(LOCAL+"/api/books/popular")
                 .then(res => res.json())
                 .then(
                     (result) => {

@@ -8,11 +8,13 @@ import { Route, HashRouter } from 'react-router-dom'
 import About from './components/About'
 import Detail from './components/Detail'
 import Cart from './components/Cart'
+import {LOCAL} from './Helper'
+
 class App extends React.Component {
   state = {
     cart: JSON.parse(localStorage.getItem('cart'))!==null?JSON.parse(localStorage.getItem('cart')):[],
     cartCount: localStorage.getItem('cart_count')!==null?parseInt(localStorage.getItem('cart_count')):0,
-    navActive: window.location.href.split("#").pop()=="http://localhost:8012/"?"/":window.location.href.split("#").pop(),
+    navActive: window.location.href.split("#").pop()==LOCAL+"/"?"/":window.location.href.split("#").pop(),
   }
   
   isBookAdded(bookId) {

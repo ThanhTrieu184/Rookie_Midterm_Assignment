@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import {LOCAL} from '../Helper'
 
 export default class CustomerReview extends Component {
 
@@ -46,7 +47,7 @@ export default class CustomerReview extends Component {
             )
     }
     componentDidMount() {
-        this.fetchComments('http://localhost:8012/api/books/' + this.state.bookId + '/comments'+'/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy)
+        this.fetchComments(LOCAL+'/api/books/' + this.state.bookId + '/comments'+'/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy)
     }
     handlePaginate(url) {
         fetch(url)
@@ -68,22 +69,22 @@ export default class CustomerReview extends Component {
     }
     showPerPage(comments) {
         this.setState({ commentsPerPage: comments }, () => {
-            this.fetchComments('http://localhost:8012/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy);
+            this.fetchComments(LOCAL+'/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy);
         });
     }
     handleSort = (cons)=> {
         if(cons === 'asc') {
-            this.setState({sortBy: 'asc'},()=>this.fetchComments('http://localhost:8012/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy))
+            this.setState({sortBy: 'asc'},()=>this.fetchComments(LOCAL+'/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy))
         }
         else {
             if(this.state.sortBy !== 'desc') {
-                this.setState({sortBy: 'desc'},()=>this.fetchComments('http://localhost:8012/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy))
+                this.setState({sortBy: 'desc'},()=>this.fetchComments(LOCAL+'/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy))
             }
             else{}
         }
     }
     handleFilter(star) {
-        this.setState({filterBy: star},()=>this.fetchComments('http://localhost:8012/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy))
+        this.setState({filterBy: star},()=>this.fetchComments(LOCAL+'/api/books/' + this.state.bookId+'/comments/'+this.state.commentsPerPage+'/'+this.state.sortBy+'/'+this.state.filterBy))
     }
 
     render() {

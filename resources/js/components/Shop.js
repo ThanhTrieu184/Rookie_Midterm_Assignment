@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Book from './Book'
 import { Link } from 'react-router-dom'
+import {LOCAL} from '../Helper'
 export default class Shop extends Component {
 
     state = {
@@ -45,7 +46,7 @@ export default class Shop extends Component {
             )
     }
     componentDidMount() {
-        fetch('http://localhost:8012/api/categories')
+        fetch(LOCAL+'/api/categories')
             .then(res => res.json())
             .then(
                 (res) => {
@@ -55,10 +56,10 @@ export default class Shop extends Component {
                 }
             )
 
-        this.fetchBooks('http://localhost:8012/api/books/filter/on-sale/' + this.state.booksPerPage)
+        this.fetchBooks(LOCAL+'/api/books/filter/on-sale/' + this.state.booksPerPage)
 
 
-        fetch('http://localhost:8012/api/authors')
+        fetch(LOCAL+'/api/authors')
             .then(res => res.json())
             .then(
                 (res) => {
@@ -67,7 +68,7 @@ export default class Shop extends Component {
                     });
                 }
             )
-        fetch('http://localhost:8012/api/comments')
+        fetch(LOCAL+'/api/comments')
             .then(res => res.json())
             .then(
                 (res) => {
@@ -78,7 +79,7 @@ export default class Shop extends Component {
             )
     }
     filter(type, fileterId, filterName) {
-        fetch('http://localhost:8012/api/books/filter/' + type + '/' + fileterId + "/" + this.state.booksPerPage+'/'+this.state.sortBy)
+        fetch(LOCAL+'/api/books/filter/' + type + '/' + fileterId + "/" + this.state.booksPerPage+'/'+this.state.sortBy)
             .then(res => res.json())
             .then(
                 (res) => {
@@ -128,21 +129,22 @@ export default class Shop extends Component {
                 this.filter(this.state.filterType, this.state.filterId, this.state.filterName);
             }
             else {
-                this.fetchBooks('http://localhost:8012/api/books/filter/on-sale/' + this.state.booksPerPage);
+                this.fetchBooks(LOCAL+'/api/books/filter/on-sale/' + this.state.booksPerPage);
             }
         });
     }
     handleSort(cons) {
         if(this.state.filterType !== 'on-sale') {
-            this.setState({sortBy: cons}, ()=>this.fetchBooks('http://localhost:8012/api/books/filter/' + this.state.filterType + '/' + this.state.filterId + "/" + this.state.booksPerPage+"/"+this.state.sortBy))
+            this.setState({sortBy: cons}, ()=>this.fetchBooks(LOCAL+'/api/books/filter/' + this.state.filterType + '/' + this.state.filterId + "/" + this.state.booksPerPage+"/"+this.state.sortBy))
         }
         else{
-            this.setState({sortBy: cons}, ()=>this.fetchBooks('http://localhost:8012/api/books/filter/' + this.state.filterType +  "/" + this.state.booksPerPage+"/"+this.state.sortBy))
+            this.setState({sortBy: cons}, ()=>this.fetchBooks(LOCAL+'/api/books/filter/' + this.state.filterType +  "/" + this.state.booksPerPage+"/"+this.state.sortBy))
         }
         
     }
 
     render() {
+        
         return (
             <div className="container" style={{ marginTop: "80px" }}>
                 <div className="row">

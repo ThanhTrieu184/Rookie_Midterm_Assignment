@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Book from './Book'
+import {LOCAL} from '../Helper'
+
 export default class Carousel extends Component {
     
     state = {
         data: []
     }
     componentDidMount() {
-        fetch("http://localhost:8012/api/books/filter/on-sale/10")
+        fetch(LOCAL+"/api/books/filter/on-sale/10")
             .then(res => res.json())
             .then(
                 (result) => {

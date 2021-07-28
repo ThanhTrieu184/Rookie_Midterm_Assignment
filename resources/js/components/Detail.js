@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import CustomerReview from './CustomerReview'
+import {LOCAL} from '../Helper'
+
 export default class Detail extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,7 @@ export default class Detail extends Component {
         rating_star: 5,
     }
     componentDidMount() {
-        fetch('http://localhost:8012/api/books/' + this.state.bookId)
+        fetch(LOCAL+'/api/books/' + this.state.bookId)
             .then(res => res.json())
             .then((res) => {
                 this.setState({
@@ -69,12 +71,12 @@ export default class Detail extends Component {
             credentials: "same-origin",
             body: JSON.stringify({ 'book_id': this.state.bookId, 'review_title': this.state.review_title, 'review_detail': this.state.review_detail, 'rating_star': this.state.rating_star })
         };
-        fetch('http://localhost:8012/api/comments', requestOptions)
+        fetch(LOCAL+'/api/comments', requestOptions)
             .then(response => response.json())
             .then((response) => {
                 if (response.data == 'success') {
                     console.log("success");
-                    this.customerReviewElement.current.fetchComments('http://localhost:8012/api/books/' + this.state.bookId + '/comments/5/desc/0');
+                    this.customerReviewElement.current.fetchComments(LOCAL+'/api/books/' + this.state.bookId + '/comments/5/desc/0');
                     this.setState({ reviewMsg: <div className="alert alert-success my-5" role="alert">Review is successfully added!</div> })
 
                 }
